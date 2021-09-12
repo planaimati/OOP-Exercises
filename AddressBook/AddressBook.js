@@ -1,42 +1,52 @@
-class Contact {
-  constructor(name, surname, email, modDate, creDate, uuid) {
-    this.name = name;
-    this.surname = surname;
-    this.email = email;
-    this.modDate = modDate;
-    this.creDate = creDate;
-    this.uuid = uuid;
+export default class AddressBook {
+  constructor(contactList, groupList) {
+    this.contactList = contactList;
+    this.groupList = groupList;
   }
 
-  changeModDate() {
-    this.modDate = new Date().toLocaleDateString();
+  //group methods
+
+  addNewGroup(group) {
+    this.groupList.push(group);
   }
 
-  changeName(name) {
-    this.name = name;
-    this.changeModDate();
+  modifyGroup(group, value, newValue) {
+    const item = this.groupList.find((item) => {
+      return item.name === group.name;
+    });
+    item[value] = newValue;
   }
 
-  changeSurname(surname) {
-    this.Surname = surname;
-    this.changeModDate();
+  deleteGroup(group) {
+    const filteredArr = this.groupList.filter((item) => item.id !== group.id);
+
+    this.groupList = filteredArr;
+  }
+  
+  //contact methods
+
+  deleteContact(contact) {
+    const filteredArr = this.contactList.filter(
+      (item) => item.id !== contact.id
+    );
+
+    this.contactList = filteredArr;
   }
 
-  changeEmail(email) {
-    this.email = email;
-    this.changeModDate();
+  addNewContact(contact) {
+    this.contactList.push(contact);
+  }
+
+  findContact(contact) {
+    return this.contactList.find((item) => {
+      return item.name === contact.name;
+    });
+  }
+
+  modifyContact(contact, value, newValue) {
+    const item = this.contactList.find((item) => {
+      return item.name === contact.name;
+    });
+    item[value] = newValue;
   }
 }
-
-const Jakub = new Contact(
-  "Jakub",
-  "Zengruba",
-  "jakub@gmail.com",
-  null,
-  new Date().toLocaleDateString(),
-  1
-);
-
-console.log(Jakub);
-Jakub.changeName("Symeon");
-console.log(Jakub);
